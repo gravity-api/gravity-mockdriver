@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Drivers.Mock", "Gravity.Drivers.Mock\Gravity.Drivers.Mock.csproj", "{A8460E8D-120B-4010-A024-32D953ABCF5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2537B89B-994C-4593-8186-75168D9890DB}
+	EndGlobalSection
+EndGlobal
