@@ -100,6 +100,7 @@ namespace OpenQA.Selenium.Mock
             Displayed = displayed;
             Location = new Point(1, 1);
             Size = new Size(10, 10);
+            Attributes = new Dictionary<string, string>();
         }
         #endregion
 
@@ -162,6 +163,11 @@ namespace OpenQA.Selenium.Mock
         /// Gets or sets a value indicating whether or not this element is state is invalid.
         /// </summary>
         public bool IsInvalidState { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of this <see cref="MockWebElement"/> attributes.
+        /// </summary>
+        public IDictionary<string, string> Attributes { get; set; }
         #endregion
 
         #region *** selenium     ***
@@ -235,6 +241,10 @@ namespace OpenQA.Selenium.Mock
         /// <returns>The attribute's current value. Returns a null if the value is not set.</returns>
         public string GetAttribute(string attributeName)
         {
+            if (Attributes.ContainsKey(attributeName))
+            {
+                return Attributes[attributeName];
+            }
             if (attributeName.Equals(MockLocators.Null, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
@@ -341,6 +351,25 @@ namespace OpenQA.Selenium.Mock
 
             // return collection
             return new ReadOnlyCollection<IWebElement>(elements.Where(i => i != null).ToList());
+        }
+
+        /// <summary>
+        /// Gets a positive 'INPUT' of type 'file'.
+        /// </summary>
+        /// <param name="parent">Driver in use.</param>
+        /// <returns>An interface through which the user controls elements on the page.</returns>
+        [Description(MockLocators.File)]
+        public static IWebElement GetFile(MockWebDriver parent)
+        {
+            // setup
+            var onElement = new MockWebElement(
+                parent, tagName: "INPUT", text: string.Empty, enabled: true, selected: false, displayed: true);
+
+            // apply attribute data
+            onElement.Attributes["type"] = "file";
+
+            // result
+            return onElement;
         }
 
         /// <summary>

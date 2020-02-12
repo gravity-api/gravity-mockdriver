@@ -95,5 +95,11 @@ namespace OpenQA.Selenium.Mock
         /// </summary>
         /// <returns>A <see cref="By"/> object the driver can use to find the elements.</returns>
         public static By Focused() => By.Id(MockLocators.Focused);
+
+        /// <summary>
+        /// Gets a mechanism to find [input type="file"] element.
+        /// </summary>
+        /// <returns>A <see cref="By"/> object the driver can use to find the elements.</returns>
+        public static By InputFile() => By.Id(MockLocators.File);
     }
 }

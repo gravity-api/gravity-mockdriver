@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Drivers.Mock", "Gravity.Drivers.Mock\Gravity.Drivers.Mock.csproj", "{A8460E8D-120B-4010-A024-32D953ABCF5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Drivers.Mock", "Gravity.Drivers.Mock\Gravity.Drivers.Mock.csproj", "{A8460E8D-120B-4010-A024-32D953ABCF5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Drivers.Mock.Tests", "Gravity.Drivers.Mock.Tests\Gravity.Drivers.Mock.Tests.csproj", "{9F611A8F-1EE5-44EF-9014-F0994D414DAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8460E8D-120B-4010-A024-32D953ABCF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F611A8F-1EE5-44EF-9014-F0994D414DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F611A8F-1EE5-44EF-9014-F0994D414DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F611A8F-1EE5-44EF-9014-F0994D414DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F611A8F-1EE5-44EF-9014-F0994D414DAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
