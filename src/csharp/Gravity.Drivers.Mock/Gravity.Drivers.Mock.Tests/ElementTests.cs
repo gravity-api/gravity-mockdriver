@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Mock;
 using System;
 
@@ -25,13 +26,36 @@ namespace Gravity.Drivers.Mock.Tests
             var iterations = 0;
 
             // generate element
-            var onElement = MockWebElement.GetElement(new MockWebDriver(), MockBy.RandomNull());
+            var onElement = MockWebElement.GetElement(new MockWebDriver(), MockBy.Positive());
 
             // iterate
             while (onElement != null)
             {
                 iterations++;
                 onElement = MockWebElement.GetElement(new MockWebDriver(), MockBy.RandomNull());
+            }
+
+            // assertion
+            Assert.IsTrue(iterations > 1);
+        });
+
+        [TestMethod]
+        public void RandomNoSuchElement() => Execute(attempts: 5, test: () =>
+        {
+            // setup
+            var iterations = 0;
+
+            // iterate
+            while (iterations < 1)
+            {
+                try
+                {
+                    MockWebElement.GetElement(new MockWebDriver(), MockBy.RandomNoSuchElement());
+                }
+                catch (Exception e) when (e is NoSuchElementException)
+                {
+                    iterations++;
+                }
             }
 
             // assertion
@@ -49,7 +73,7 @@ namespace Gravity.Drivers.Mock.Tests
                 }
                 catch (Exception e) when (e != null)
                 {
-                    if(i == attempts - 1)
+                    if (i == attempts - 1)
                     {
                         throw;
                     }

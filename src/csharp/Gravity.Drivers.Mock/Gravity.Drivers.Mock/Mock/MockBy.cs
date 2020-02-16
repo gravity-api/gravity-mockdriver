@@ -91,10 +91,16 @@ namespace OpenQA.Selenium.Mock
         public static By RandomNotExists() => By.Id(MockLocators.RandomNotExists);
 
         /// <summary>
-        /// Gets a mechanism to find a random element with 1% chance of getting null result.
+        /// Gets a mechanism to find a random element with 90% chance of getting null result.
         /// </summary>
         /// <returns>A <see cref="By"/> object the driver can use to find the elements.</returns>
         public static By RandomNull() => By.Id(MockLocators.RandomNull);
+
+        /// <summary>
+        /// Gets a mechanism to find a random element with 10% chance of getting <see cref="NoSuchElementException"/>.
+        /// </summary>
+        /// <returns>A <see cref="By"/> object the driver can use to find the elements.</returns>
+        public static By RandomNoSuchElement() => By.Id(MockLocators.RandomNoSuchElement);
 
         /// <summary>
         /// Gets a mechanism to find the current focused element.
