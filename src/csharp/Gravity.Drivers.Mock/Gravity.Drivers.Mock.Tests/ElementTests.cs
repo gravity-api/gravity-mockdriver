@@ -36,7 +36,7 @@ namespace Gravity.Drivers.Mock.Tests
             }
 
             // assertion
-            Assert.IsTrue(iterations > 1);
+            Assert.IsTrue(iterations > 0);
         });
 
         [TestMethod]
@@ -53,6 +53,29 @@ namespace Gravity.Drivers.Mock.Tests
                     MockWebElement.GetElement(new MockWebDriver(), MockBy.RandomNoSuchElement());
                 }
                 catch (Exception e) when (e is NoSuchElementException)
+                {
+                    iterations++;
+                }
+            }
+
+            // assertion
+            Assert.IsTrue(iterations > 0);
+        });
+
+        [TestMethod]
+        public void RandomStale() => Execute(attempts: 5, test: () =>
+        {
+            // setup
+            var iterations = 0;
+
+            // iterate
+            while (iterations < 1)
+            {
+                try
+                {
+                    MockWebElement.GetElement(new MockWebDriver(), MockBy.RandomStale());
+                }
+                catch (Exception e) when (e is StaleElementReferenceException)
                 {
                     iterations++;
                 }

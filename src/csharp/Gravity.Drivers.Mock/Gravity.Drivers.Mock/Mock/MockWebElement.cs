@@ -460,7 +460,7 @@ namespace OpenQA.Selenium.Mock
         }
 
         /// <summary>
-        /// Gets a random element with 90% chance of getting null result.
+        /// Gets a random element with 5% chance of getting null result.
         /// </summary>
         /// <param name="parent">Driver in use.</param>
         /// <returns>An interface through which the user controls elements on the page.</returns>
@@ -468,11 +468,11 @@ namespace OpenQA.Selenium.Mock
         public static IWebElement GetRandomNull(MockWebDriver parent)
         {
             // fetch elements >> return first or null
-            return RandomElement(parent, 90, () => parent.FindElement(MockBy.Null()));
+            return RandomElement(parent, 95, () => parent.FindElement(MockBy.Null()));
         }
 
         /// <summary>
-        /// Gets a random element with 90% chance of getting <see cref="NoSuchElementException"/>.
+        /// Gets a random element with 5% chance of getting <see cref="NoSuchElementException"/>.
         /// </summary>
         /// <param name="parent">Driver in use.</param>
         /// <returns>An interface through which the user controls elements on the page.</returns>
@@ -480,7 +480,19 @@ namespace OpenQA.Selenium.Mock
         public static IWebElement GetRandomNoSuchElement(MockWebDriver parent)
         {
             // fetch elements >> return first or null
-            return RandomElement(parent, 90, () => parent.FindElement(MockBy.None()));
+            return RandomElement(parent, 95, () => parent.FindElement(MockBy.None()));
+        }
+
+        /// <summary>
+        /// Gets a random element with 5% chance of getting <see cref="StaleElementReferenceException"/>.
+        /// </summary>
+        /// <param name="parent">Driver in use.</param>
+        /// <returns>An interface through which the user controls elements on the page.</returns>
+        [Description(MockLocators.RandomStale)]
+        public static IWebElement GetRandomStale(MockWebDriver parent)
+        {
+            // fetch elements >> return first or null
+            return RandomElement(parent, 95, () => parent.FindElement(MockBy.Stale()));
         }
 
         /// <summary>

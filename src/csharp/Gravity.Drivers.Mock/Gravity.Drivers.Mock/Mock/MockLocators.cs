@@ -19,6 +19,7 @@ namespace OpenQA.Selenium.Mock
         public const string RandomNotExists = "random-x";
         public const string RandomNull = "random-l";
         public const string RandomNoSuchElement = "random-k";
+        public const string RandomStale = "random-o";
         public const string Focused = "focused";
         public const string InvalidElementState = "invalid-state";
         public const string SelectElement = "select-element";
