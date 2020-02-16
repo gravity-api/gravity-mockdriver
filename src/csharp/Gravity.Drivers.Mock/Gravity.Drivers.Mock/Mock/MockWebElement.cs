@@ -460,6 +460,18 @@ namespace OpenQA.Selenium.Mock
         }
 
         /// <summary>
+        /// Gets a random element with 90% chance of getting null result.
+        /// </summary>
+        /// <param name="parent">Driver in use.</param>
+        /// <returns>An interface through which the user controls elements on the page.</returns>
+        [Description(MockLocators.RandomNull)]
+        public static IWebElement GetRandomNull(MockWebDriver parent)
+        {
+            // fetch elements >> return first or null
+            return RandomElement(parent, 90, () => null);
+        }
+
+        /// <summary>
         /// Gets a mechanism to find an exists mock element with 10% success rate.
         /// </summary>
         /// <param name="parent"></param>
@@ -515,6 +527,11 @@ namespace OpenQA.Selenium.Mock
         // gets a random element (positive or negative).
         private static IWebElement RandomElement(MockWebDriver parent, int positiveRatio)
         {
+            return RandomElement(parent, positiveRatio, factory: () => Negative(parent));
+        }
+
+        private static IWebElement RandomElement(MockWebDriver parent, int positiveRatio, Func<IWebElement> factory)
+        {
             // get score
             var score = 0;
             lock (random)
@@ -523,11 +540,19 @@ namespace OpenQA.Selenium.Mock
             }
 
             // factoring
-            return (score <= positiveRatio) ? Positive(parent) : Negative(parent);
+            return (score <= positiveRatio) ? Positive(parent) : factory.Invoke();
         }
 
         // gets a random element (positive or negative).
         private static ReadOnlyCollection<IWebElement> RandomElements(MockWebDriver parent, int existsRatio)
+        {
+            return RandomElements(parent, existsRatio,
+                factory: () => new ReadOnlyCollection<IWebElement>(new List<IWebElement>()));
+        }
+
+        // gets a random element (positive or negative).
+        private static ReadOnlyCollection<IWebElement> RandomElements(
+            MockWebDriver parent, int existsRatio, Func<ReadOnlyCollection<IWebElement>> factory)
         {
             // get score
             var score = 0;
@@ -539,7 +564,7 @@ namespace OpenQA.Selenium.Mock
             // factoring
             return (score <= existsRatio)
                 ? new ReadOnlyCollection<IWebElement>(new List<IWebElement> { Positive(parent) })
-                : new ReadOnlyCollection<IWebElement>(new List<IWebElement>());
+                : factory.Invoke();
         }
 
         // gets a positive 'DIV' element
