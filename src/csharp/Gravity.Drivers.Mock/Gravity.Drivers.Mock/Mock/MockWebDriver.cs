@@ -335,7 +335,30 @@ namespace OpenQA.Selenium.Mock
         private string SrcMarco() => "some text and number 777";
 
         [Description("readyState")]
-        private string SrcReadyState() => "complete";
+        private string SrcReadyState()
+        {
+            // setup
+            var random = new Random().Next(0, 100);
+
+            // script result
+            if (random < 20)
+            {
+                return "uninitialized";
+            }
+            if(random > 20 && random < 40)
+            {
+                return "loading";
+            }
+            if(random > 40 && random < 60)
+            {
+                return "loaded";
+            }
+            if(random > 60 && random < 80)
+            {
+                return "interactive";
+            }
+            return "complete";
+        }
 
         [Description(".*invalid.*")]
         private string SrcInvalid() => throw new WebDriverException();
