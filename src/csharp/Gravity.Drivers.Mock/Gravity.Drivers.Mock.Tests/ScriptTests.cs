@@ -67,8 +67,8 @@ namespace Gravity.Drivers.Mock.Tests
             driver.ExecuteScript(script);
 
             // assert
-            Assert.IsTrue(driver.Manage().Window.Position.X == 500);
-            Assert.IsTrue(driver.Manage().Window.Position.Y == 400);
+            Assert.IsTrue(driver.Manage().Window.Position.Y == 500);
+            Assert.IsTrue(driver.Manage().Window.Position.X == 400);
         }
 
         [DataTestMethod]
@@ -87,12 +87,12 @@ namespace Gravity.Drivers.Mock.Tests
             var scrollLeft = (string)driver.ExecuteScript("return arguments[0].scrollLeft;", element);
 
             // assert
-            Assert.IsTrue(scrollLeft == "500");
-            Assert.IsTrue(scrollTop == "400");
+            Assert.IsTrue(scrollLeft == "400");
+            Assert.IsTrue(scrollTop == "500");
         }
 
         [TestMethod]
-        public void ScriptPositive()
+        public void ScriptElementPositive()
         {
             // setup
             var driver = new MockWebDriver();

@@ -28,8 +28,8 @@ namespace OpenQA.Selenium.Mock
     public class MockWebDriver : IWebDriver, IJavaScriptExecutor, IHasSessionId, IActionExecutor, IHasInputDevices, ITakesScreenshot
     {
         // members: state
-        private int xPosition;
-        private int yPosition;
+        private int leftPosition;
+        private int topPosition;
 
         #region *** constructors ***
         /// <summary>
@@ -287,7 +287,7 @@ namespace OpenQA.Selenium.Mock
         /// <returns> An <see cref="IOptions"/> object allowing the user to change the settings of the driver.</returns>
         public IOptions Manage() => new MockOptions()
         {
-            Window = new MockWindow(new Point(x: xPosition, y: yPosition))
+            Window = new MockWindow(new Point(x: leftPosition, y: topPosition))
         };
 
         /// <summary>
@@ -407,12 +407,12 @@ namespace OpenQA.Selenium.Mock
         private string SrcScroll(string script)
         {
             // setup
-            var x = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
-            var y = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
+            var y = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
+            var x = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
 
-            // set state
-            int.TryParse(x, out xPosition);
-            int.TryParse(y, out yPosition);
+            // set state            
+            int.TryParse(y, out topPosition);
+            int.TryParse(x, out leftPosition);
 
             // result
             return string.Empty;
@@ -422,8 +422,8 @@ namespace OpenQA.Selenium.Mock
         private string SrcScrollElement(string script, object[] args)
         {
             // setup
-            var x = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
-            var y = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
+            var y = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
+            var x = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
 
             // element
             if (args?.Length > 0 && args[0].GetType() == typeof(MockWebElement))
