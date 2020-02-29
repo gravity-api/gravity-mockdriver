@@ -14,9 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace OpenQA.Selenium.Mock
 {
@@ -25,6 +27,10 @@ namespace OpenQA.Selenium.Mock
     /// </summary>
     public class MockWebDriver : IWebDriver, IJavaScriptExecutor, IHasSessionId, IActionExecutor, IHasInputDevices, ITakesScreenshot
     {
+        // members: state
+        private int xPosition;
+        private int yPosition;
+
         #region *** constructors ***
         /// <summary>
         /// Initializes a new instance of the <see cref="MockWebDriver"/> class.
@@ -210,7 +216,8 @@ namespace OpenQA.Selenium.Mock
             // return mock script
             try
             {
-                return (string)method.Invoke(this, null);
+                var arguments = GetScriptMethodArguments(method, script, args);
+                return (string)method.Invoke(this, arguments);
             }
             catch (Exception e)
             {
@@ -220,6 +227,33 @@ namespace OpenQA.Selenium.Mock
                 }
                 throw;
             }
+        }
+
+        private object[] GetScriptMethodArguments(MethodInfo method, string script, params object[] args)
+        {
+            var parametes = method.GetParameters();
+            object[] arguments = null;
+
+            // script
+            if (parametes.Length == 1 && parametes[0].ParameterType == typeof(string))
+            {
+                arguments = new object[] { script };
+            }
+            // arguments
+            if (parametes.Length == 1 && parametes[0].ParameterType == typeof(object[]))
+            {
+                arguments = args;
+            }
+            // script & arguments
+            if (parametes.Length == 2
+                && parametes[0].ParameterType == typeof(string)
+                && parametes[1].ParameterType == typeof(object[]))
+            {
+                arguments = new object[] { script, args };
+            }
+
+            // result
+            return arguments;
         }
 
         /// <summary>
@@ -251,7 +285,10 @@ namespace OpenQA.Selenium.Mock
         /// Instructs the driver to change its settings.
         /// </summary>
         /// <returns> An <see cref="IOptions"/> object allowing the user to change the settings of the driver.</returns>
-        public IOptions Manage() => new MockOptions();
+        public IOptions Manage() => new MockOptions()
+        {
+            Window = new MockWindow(new Point(x: xPosition, y: yPosition))
+        };
 
         /// <summary>
         /// Instructs the driver to navigate the browser to another location.
@@ -363,8 +400,62 @@ namespace OpenQA.Selenium.Mock
         [Description(".*invalid.*")]
         private string SrcInvalid() => throw new WebDriverException();
 
-        [Description("^$|unitTesting|arguments\\[\\d+\\]\\.(?!(.*invalid.*))|^document.forms.*.submit.*.;$")]
+        [Description("^$|unitTesting|arguments\\[\\d+\\]\\.[^scroll](?!(.*invalid.*))|^document.forms.*.submit.*.;$")]
         private string SrcEmpty() => string.Empty;
+
+        [Description(@"^window\.scroll")]
+        private string SrcScroll(string script)
+        {
+            // setup
+            var x = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
+            var y = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
+
+            // set state
+            int.TryParse(x, out xPosition);
+            int.TryParse(y, out yPosition);
+
+            // result
+            return string.Empty;
+        }
+
+        [Description(@"^arguments\[0]\.scroll")]
+        private string SrcScrollElement(string script, object[] args)
+        {
+            // setup
+            var x = Regex.Match(script, @"(?<=top:(\s+)?)\d+").Value;
+            var y = Regex.Match(script, @"(?<=left:(\s+)?)\d+").Value;
+
+            // element
+            if (args?.Length > 0 && args[0].GetType() == typeof(MockWebElement))
+            {
+                ((MockWebElement)args[0]).Attributes = new Dictionary<string, string>
+                {
+                    ["scrollTop"] = y,
+                    ["scrollLeft"] = x
+                };
+            }
+
+            // result
+            return string.Empty;
+        }
+
+        [Description(@"^return arguments\[0]\.scroll(Top|Left);$")]
+        private string SrcGetScroll(string script, object[] args)
+        {
+            // setup
+            var x = "0";
+            var y = "0";
+
+            // element
+            if (args?.Length > 0 && args[0].GetType() == typeof(MockWebElement))
+            {
+                x = ((MockWebElement)args[0]).GetAttribute("scrollLeft");
+                y = ((MockWebElement)args[0]).GetAttribute("scrollTop");
+            }
+
+            // result
+            return script.Contains("scrollLeft") ? x : y;
+        }
 #pragma warning restore
     }
 }

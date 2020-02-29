@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium;
-
-namespace OpenQA.Selenium.Mock
+﻿namespace OpenQA.Selenium.Mock
 {
     /// <summary>
     /// Defines an interface allowing the user to set options on the browser.
@@ -16,11 +14,7 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Gets an object allowing the user to manipulate the currently-focused browser window.
         /// </summary>
-        /// <remarks>
-        /// "Currently-focused" is defined as the browser window having the window handle
-        /// returned when IWebDriver.CurrentWindowHandle is called.
-        /// </remarks>
-        public IWindow Window => new MockWindow();
+        public IWindow Window { get; set; } = new MockWindow();
 
         /// <summary>
         /// Gets an object allowing the user to examining the logs for this driver instance.
@@ -30,9 +24,7 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Provides access to the timeouts defined for this driver.
         /// </summary>
-        /// <returns>
-        /// An object implementing the <see cref="ITimeouts" /> interface.
-        /// </returns>
+        /// <returns>An object implementing the <see cref="ITimeouts" /> interface.</returns>
         public ITimeouts Timeouts()
         {
             return new MockTimeouts();

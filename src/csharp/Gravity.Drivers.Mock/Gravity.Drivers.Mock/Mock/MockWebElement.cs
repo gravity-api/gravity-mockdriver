@@ -245,6 +245,7 @@ namespace OpenQA.Selenium.Mock
             {
                 return Attributes[attributeName];
             }
+
             if (attributeName.Equals(MockLocators.Null, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
