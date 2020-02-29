@@ -221,7 +221,7 @@ namespace OpenQA.Selenium.Mock
             }
             catch (Exception e)
             {
-                if(e.InnerException != null)
+                if (e.InnerException != null)
                 {
                     throw e.InnerException;
                 }
