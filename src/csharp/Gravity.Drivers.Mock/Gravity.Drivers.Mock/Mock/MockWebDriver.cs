@@ -400,7 +400,7 @@ namespace OpenQA.Selenium.Mock
         [Description(".*invalid.*")]
         private string SrcInvalid() => throw new WebDriverException();
 
-        [Description("^$|unitTesting|arguments\\[\\d+\\]\\.[^scroll](?!(.*invalid.*))|^document.forms.*.submit.*.;$")]
+        [Description("^$|unitTesting|arguments\\[\\d+\\]\\.(?!scroll)(?!(.*invalid.*))|^document.forms.*.submit.*.;$")]
         private string SrcEmpty() => string.Empty;
 
         [Description(@"^window\.scroll")]

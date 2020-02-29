@@ -90,6 +90,19 @@ namespace Gravity.Drivers.Mock.Tests
             Assert.IsTrue(scrollLeft == "500");
             Assert.IsTrue(scrollTop == "400");
         }
+
+        [TestMethod]
+        public void ScriptPositive()
+        {
+            // setup
+            var driver = new MockWebDriver();
+
+            // execute
+            driver.ExecuteScript("arguments[0].checked=false");
+
+            // assert
+            Assert.IsTrue(true);
+        }
     }
 }
 #pragma warning restore S4144
