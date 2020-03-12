@@ -1,5 +1,4 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 
 namespace OpenQA.Selenium.Mock
 {
@@ -10,6 +9,18 @@ namespace OpenQA.Selenium.Mock
     /// <seealso cref="INavigation" />
     public class MockNavigation : INavigation
     {
+        // members: state
+        private readonly IWebDriver driver;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MockNavigation"/>.
+        /// </summary>
+        /// <param name="driver"><see cref="MockWebDriver"/> on which this <see cref="MockNavigation"/> based.</param>
+        public MockNavigation(MockWebDriver driver)
+        {
+            this.driver = driver;
+        }
+
         /// <summary>
         /// Move back a single entry in the browser's history.
         /// </summary>
@@ -32,37 +43,19 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Load a new web page in the current browser window.
         /// </summary>
-        /// <param name="url">The URL to load. It is best to use a fully qualified URL</param>
-        /// <remarks>
-        /// Calling the <see cref="INavigation.GoToUrl(System.String)" /> method will load a new web page in the current browser window.
-        /// This is done using an HTTP GET operation, and the method will block until the
-        /// load is complete. This will follow redirects issued either by the server or
-        /// as a meta-redirect from within the returned HTML. Should a meta-redirect "rest"
-        /// for any duration of time, it is best to wait until this timeout is over, since
-        /// should the underlying page change while your test is executing the results of
-        /// future calls against this interface will be against the freshly loaded page.
-        /// </remarks>
+        /// <param name="url">The URL to load. It is best to use a fully qualified URL.</param>
         public void GoToUrl(string url)
         {
-            // Method intentionally left empty.
+            driver.Url = url;
         }
 
         /// <summary>
         /// Load a new web page in the current browser window.
         /// </summary>
         /// <param name="url">The URL to load.</param>
-        /// <remarks>
-        /// Calling the <see cref="INavigation.GoToUrl(System.Uri)" /> method will load a new web page in the current browser window.
-        /// This is done using an HTTP GET operation, and the method will block until the
-        /// load is complete. This will follow redirects issued either by the server or
-        /// as a meta-redirect from within the returned HTML. Should a meta-redirect "rest"
-        /// for any duration of time, it is best to wait until this timeout is over, since
-        /// should the underlying page change while your test is executing the results of
-        /// future calls against this interface will be against the freshly loaded page.
-        /// </remarks>
         public void GoToUrl(Uri url)
         {
-            // Method intentionally left empty.
+            driver.Url = url.AbsoluteUri;
         }
 
         /// <summary>

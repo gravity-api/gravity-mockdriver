@@ -294,7 +294,7 @@ namespace OpenQA.Selenium.Mock
         /// Instructs the driver to navigate the browser to another location.
         /// </summary>
         /// <returns>An <see cref="INavigation" /> object allowing the user to access the browser's history and to navigate to a given URL.</returns>
-        public INavigation Navigate() => new MockNavigation();
+        public INavigation Navigate() => new MockNavigation(this);
 
         /// <summary>
         /// Quits this driver, closing every associated window.
