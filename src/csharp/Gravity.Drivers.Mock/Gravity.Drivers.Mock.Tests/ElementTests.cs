@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Mock;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Gravity.Drivers.Mock.Tests
 {
@@ -84,6 +85,56 @@ namespace Gravity.Drivers.Mock.Tests
             // assertion
             Assert.IsTrue(iterations > 0);
         });
+
+        [DataTestMethod]
+        [DataRow("href", "http://m.from-href.io/")]
+        [DataRow("index", "0")]
+        [DataRow("any", "mock attribute value")]
+        public void Attributes(string attribute, string expected)
+        {
+            // actual
+            var actual = new MockWebDriver().FindElement(MockBy.Positive()).GetAttribute(attribute);
+
+            // assertion
+            Assert.IsTrue(Regex.IsMatch(actual, expected));
+        }
+
+        [DataTestMethod]
+        [DataRow("exception"), ExpectedException(typeof(WebDriverException))]
+        public void AttributesException(string attribute)
+        {
+            // actual
+            new MockWebDriver().FindElement(MockBy.Positive()).GetAttribute(attribute);
+
+            // assertion
+            Assert.IsTrue(false);
+        }
+
+        [DataTestMethod]
+        [DataRow("null", null)]
+        public void AttributesNull(string attribute, string expected)
+        {
+            // actual
+            var actual = new MockWebDriver().FindElement(MockBy.Positive()).GetAttribute(attribute);
+
+            // assertion
+            Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DataRow("value", "test value")]
+        public void AttributesValue(string attribute, string expected)
+        {
+            // setup
+            var element = new MockWebDriver().FindElement(MockBy.Positive());
+            element.SendKeys(expected);
+
+            // get actual
+            var actual = element.GetAttribute(attribute);
+
+            // assertion
+            Assert.AreEqual(expected, actual);
+        }
 
         private void Execute(int attempts, Action test)
         {

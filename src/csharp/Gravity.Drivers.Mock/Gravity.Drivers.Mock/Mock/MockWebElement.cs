@@ -100,7 +100,12 @@ namespace OpenQA.Selenium.Mock
             Displayed = displayed;
             Location = new Point(1, 1);
             Size = new Size(10, 10);
-            Attributes = new Dictionary<string, string>();
+            Attributes = new Dictionary<string, string>()
+            {
+                [MockLocators.Index] = "0",
+                [MockLocators.Null] = null,
+                ["href"] = "http://m.from-href.io/"
+            };
         }
         #endregion
 
@@ -246,19 +251,9 @@ namespace OpenQA.Selenium.Mock
                 return Attributes[attributeName];
             }
 
-            if (attributeName.Equals(MockLocators.Null, StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
             if (attributeName.Equals(MockLocators.Exception))
             {
                 throw new WebDriverException();
-            }
-
-            if (attributeName.Equals(MockLocators.Index))
-            {
-                return "0";
             }
 
             return attributeName.Equals(nameof(value), StringComparison.OrdinalIgnoreCase)
