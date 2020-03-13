@@ -30,6 +30,7 @@ namespace OpenQA.Selenium.Mock
         // members: state
         private int leftPosition;
         private int topPosition;
+        private string currentUrl;
 
         #region *** constructors ***
         /// <summary>
@@ -60,6 +61,7 @@ namespace OpenQA.Selenium.Mock
             SessionId = new SessionId($"mock-{Guid.NewGuid()}");
             DriverBinaries = driverBinaries;
             Capabilities = capabilities;
+            currentUrl = "http://positive.io/";
         }
         #endregion
 
@@ -67,7 +69,15 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Gets or sets the URL the browser is currently displaying.
         /// </summary>
-        public string Url { get; set; } = "http://mockgravityapiurl.com/";
+        public string Url
+        {
+            get => currentUrl;
+            set
+            {
+                currentUrl = value;
+                Navigate().GoToUrl(currentUrl);
+            }
+        }
 
         /// <summary>
         /// Gets the title of the current browser window.
@@ -457,5 +467,12 @@ namespace OpenQA.Selenium.Mock
             return script.Contains("scrollLeft") ? x : y;
         }
 #pragma warning restore
+
+        // UTILITIES
+        /// <summary>
+        /// Sets the current URL address of this <see cref="MockWebDriver"/>.
+        /// </summary>
+        /// <param name="currentUrl">New URL address to set for this <see cref="MockWebDriver"/>.</param>
+        internal void CurrentUrl(string currentUrl) => this.currentUrl = currentUrl;
     }
 }

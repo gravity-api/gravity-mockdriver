@@ -10,7 +10,7 @@ namespace OpenQA.Selenium.Mock
     public class MockNavigation : INavigation
     {
         // members: state
-        private readonly IWebDriver driver;
+        private readonly MockWebDriver driver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MockNavigation"/>.
@@ -46,7 +46,7 @@ namespace OpenQA.Selenium.Mock
         /// <param name="url">The URL to load. It is best to use a fully qualified URL.</param>
         public void GoToUrl(string url)
         {
-            driver.Url = url;
+            driver.CurrentUrl(currentUrl: url);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace OpenQA.Selenium.Mock
         /// <param name="url">The URL to load.</param>
         public void GoToUrl(Uri url)
         {
-            driver.Url = url.AbsoluteUri;
+            driver.CurrentUrl(currentUrl: url.AbsoluteUri);
         }
 
         /// <summary>
