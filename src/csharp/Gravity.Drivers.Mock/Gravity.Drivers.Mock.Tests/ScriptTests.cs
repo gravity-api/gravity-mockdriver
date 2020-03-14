@@ -103,6 +103,21 @@ namespace Gravity.Drivers.Mock.Tests
             // assert
             Assert.IsTrue(true);
         }
+
+        [DataTestMethod]
+        [DataRow("window.open('about:blank', '_blank');")]
+        public void NewTab(string script)
+        {
+            // setup
+            var driver = new MockWebDriver();
+            var expected = driver.WindowHandles.Count + 1;
+
+            // execute
+            driver.ExecuteScript(script);
+
+            // assert
+            Assert.AreEqual(expected, actual: driver.WindowHandles.Count);
+        }
     }
 }
 #pragma warning restore S4144

@@ -466,6 +466,20 @@ namespace OpenQA.Selenium.Mock
             // result
             return script.Contains("scrollLeft") ? x : y;
         }
+
+        [Description(@"^window.open\('about:blank', '_blank'\);$")]
+        private string SrcBlankPage(string script)
+        {
+            // setup
+            var list = WindowHandles.ToList();
+
+            // append
+            list.Add($"window-{Guid.NewGuid()}");
+            WindowHandles = new ReadOnlyCollection<string>(list);
+
+            // result
+            return script;
+        }
 #pragma warning restore
 
         // UTILITIES
