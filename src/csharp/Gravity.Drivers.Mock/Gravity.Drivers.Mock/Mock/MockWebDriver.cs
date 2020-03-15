@@ -87,16 +87,17 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Gets the source of the page last loaded by the browser.
         /// </summary>
-        public string PageSource => new StringBuilder()
+        public string PageSource { get; set; } = new StringBuilder()
             .Append("<html>")
             .Append("   <head>".Trim())
-            .Append("       <body class=\"mockClass\">".Trim())
-            .Append("           <div id=\"mockDiv\">mock div text</div>".Trim())
-            .Append("           <positive>mock div text 1</positive>".Trim())
-            .Append("           <positive>mock div text 2</positive>".Trim())
-            .Append("           <positive>mock div text 3</positive>".Trim())
-            .Append("       </body>".Trim())
+            .Append("       <title>mock page source title</title>")
             .Append("   </head>".Trim())
+            .Append("   <body class=\"mockClass\">".Trim())
+            .Append("       <div id=\"mockDiv\">mock div text</div>".Trim())
+            .Append("       <positive>mock div text 1</positive>".Trim())
+            .Append("       <positive>mock div text 2</positive>".Trim())
+            .Append("       <positive>mock div text 3</positive>".Trim())
+            .Append("   </body>".Trim())
             .Append("</html>")
             .ToString();
 
