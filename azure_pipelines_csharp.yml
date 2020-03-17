@@ -25,13 +25,24 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
+- powershell: |
+   [xml]$doc = Get-Content azure_settings_mstest.runsettings
+   $doc.RunSettings.TestRunParameters.ChildNodes.Item(0).value = '$(Grid.Endpoint)'
+   $doc.RunSettings.TestRunParameters.ChildNodes.Item(1).value = '$(Build.BuildNumber)'
+   $doc.Save("azure_settings_mstest_prod.runsettings")
+  displayName: create test settings > override with production parameters
+
 - task: DotNetCoreCLI@2
   displayName: execute automated testing
   inputs:
     command: 'test'
     projects: '**/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) -s azure_settings_mstest_prod.runsettings'
     testRunTitle: 'Automation Testing --- $(Build.BuildNumber)'
+
+- powershell: |
+   Remove-Item azure_settings_mstest_prod.runsettings
+  displayName: cleanup
 
 - task: DotNetCoreCLI@2
   displayName: create package

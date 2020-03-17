@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Drivers.Mock", "Gravity.Drivers.Mock\Gravity.Drivers.Mock.csproj", "{A8460E8D-120B-4010-A024-32D953ABCF5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravity.Drivers.Mock.Tests", "Gravity.Drivers.Mock.Tests\Gravity.Drivers.Mock.Tests.csproj", "{9F611A8F-1EE5-44EF-9014-F0994D414DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity.Drivers.Mock.Tests", "Gravity.Drivers.Mock.Tests\Gravity.Drivers.Mock.Tests.csproj", "{9F611A8F-1EE5-44EF-9014-F0994D414DAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A162575C-C629-4359-88F9-428303408E9C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\azure_pipelines_csharp.yml = ..\..\..\azure_pipelines_csharp.yml
+		..\..\..\azure_settings_mstest.runsettings = ..\..\..\azure_settings_mstest.runsettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
