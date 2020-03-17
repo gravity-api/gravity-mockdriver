@@ -607,7 +607,7 @@ namespace OpenQA.Selenium.Mock
             // default
             if (method == default)
             {
-                throw new NoSuchElementException();
+                return new MockWebElement(parent);
             }
 
             // factor

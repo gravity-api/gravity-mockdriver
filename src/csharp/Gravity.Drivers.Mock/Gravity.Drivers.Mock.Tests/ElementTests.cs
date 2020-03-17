@@ -136,6 +136,17 @@ namespace Gravity.Drivers.Mock.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [DataTestMethod]
+        [DataRow("//div")]
+        public void AnyLocator(string locator)
+        {
+            // setup
+            var element = new MockWebDriver().FindElements(By.XPath(locator));
+
+            // assertion
+            Assert.IsTrue(element != null);
+        }
+
         private void Execute(int attempts, Action test)
         {
             for (int i = 0; i < attempts; i++)
