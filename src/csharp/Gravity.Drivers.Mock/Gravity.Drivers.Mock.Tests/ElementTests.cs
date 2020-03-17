@@ -138,13 +138,35 @@ namespace Gravity.Drivers.Mock.Tests
 
         [DataTestMethod]
         [DataRow("//div")]
-        public void AnyLocator(string locator)
+        public void WhiteListMultiple(string locator)
         {
             // setup
-            var element = new MockWebDriver().FindElements(By.XPath(locator));
+            var elements = new MockWebDriver().FindElements(By.XPath(locator));
+
+            // assertion
+            Assert.IsTrue(elements.Count > 0);
+        }
+
+        [DataTestMethod]
+        [DataRow("//div")]
+        public void WhiteListSingle(string locator)
+        {
+            // setup
+            var element = new MockWebDriver().FindElement(By.XPath(locator));
 
             // assertion
             Assert.IsTrue(element != null);
+        }
+
+        [DataTestMethod, ExpectedException(typeof(NoSuchElementException))]
+        [DataRow("not a locator")]
+        public void WhiteListNegative(string locator)
+        {
+            // setup
+            new MockWebDriver().FindElement(By.XPath(locator));
+
+            // assertion (expected exception)
+            Assert.IsTrue(true);
         }
 
         private void Execute(int attempts, Action test)

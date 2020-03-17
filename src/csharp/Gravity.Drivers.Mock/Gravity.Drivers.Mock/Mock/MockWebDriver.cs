@@ -141,6 +141,18 @@ namespace OpenQA.Selenium.Mock
         /// Provides methods representing basic mouse actions.
         /// </summary>
         public IMouse Mouse => new MockMouse();
+
+        /// <summary>
+        /// Gets or sets a list of valid locator values. When passing these values with any locator,
+        /// a positive element will be returned even not element method found, otherwise will throw
+        /// <see cref="NoSuchElementException"/>.
+        /// </summary>
+        public IEnumerable<string> LocatorsWhiteList { get; set; } = new[]
+        {
+            "//div",
+            "//span",
+            "//p"
+        };
         #endregion
 
         #region *** selenium     ***

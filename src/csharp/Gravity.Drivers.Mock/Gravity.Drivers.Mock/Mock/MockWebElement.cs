@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Linq;
 using OpenQA.Selenium.Mock.Extensions;
+using System.Text.RegularExpressions;
 
 namespace OpenQA.Selenium.Mock
 {
@@ -604,18 +605,26 @@ namespace OpenQA.Selenium.Mock
             const BindingFlags flags = BindingFlags.Static | BindingFlags.Public;
             var method = typeof(MockWebElement).GetMethodByDescription(byValue, flags);
 
+            // setup conditions
+            var isMethod = method != default;
+            var isWhiteList = !isMethod && parent.LocatorsWhiteList.Any(i => Regex.IsMatch(byValue, i));
+
             // default
-            if (method == default)
+            if (isWhiteList)
             {
                 return new MockWebElement(parent);
+            }
+            if (!isMethod)
+            {
+                throw new NoSuchElementException();
             }
 
             // factor
             try
             {
-                return method.GetParameters().Length == 1
+                return method?.GetParameters().Length == 1
                     ? (IWebElement)method.Invoke(null, new object[] { parent })
-                    : (IWebElement)method.Invoke(null, null);
+                    : (IWebElement)method?.Invoke(null, null);
             }
             catch (Exception e)
             {
