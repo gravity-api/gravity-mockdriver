@@ -28,7 +28,7 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - powershell: |
-   [xml]$doc = Get-Content azure-settings.runsettings
+   [xml]$doc = Get-Content azure_settings_mstest.runsettings
    $doc.RunSettings.TestRunParameters.ChildNodes.Item(0).value = '$(Grid.Endpoint)'
    $doc.RunSettings.TestRunParameters.ChildNodes.Item(1).value = '$(Grid.BasicAuthorization)'
    $doc.RunSettings.TestRunParameters.ChildNodes.Item(2).value = '$(Build.BuildNumber)'
