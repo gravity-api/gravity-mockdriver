@@ -6,7 +6,9 @@ pool:
   name: Default
 
 variables:
-  buildConfiguration: 'Release'
+- group: browserstack.com
+- name: 'buildConfiguration'
+  value: 'Release'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -26,10 +28,11 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - powershell: |
-   [xml]$doc = Get-Content azure_settings_mstest.runsettings
+   [xml]$doc = Get-Content azure-settings.runsettings
    $doc.RunSettings.TestRunParameters.ChildNodes.Item(0).value = '$(Grid.Endpoint)'
-   $doc.RunSettings.TestRunParameters.ChildNodes.Item(1).value = '$(Build.BuildNumber)'
-   $doc.Save("azure_settings_mstest_prod.runsettings")
+   $doc.RunSettings.TestRunParameters.ChildNodes.Item(1).value = '$(Grid.BasicAuthorization)'
+   $doc.RunSettings.TestRunParameters.ChildNodes.Item(2).value = '$(Build.BuildNumber)'
+   $doc.Save("azure-settings-prod.runsettings")
   displayName: create test settings > override with production parameters
 
 - task: DotNetCoreCLI@2

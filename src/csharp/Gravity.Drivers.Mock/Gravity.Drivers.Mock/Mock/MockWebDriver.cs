@@ -493,6 +493,12 @@ namespace OpenQA.Selenium.Mock
             // result
             return script;
         }
+
+        [Description(@"^return arguments\[0\].outerHTML;$")]
+        private string SrcElementOuterHtml() =>
+            "<div id=\"element_outer_html\">" +
+            "    mock web element outer HTML." +
+            "</div>";
 #pragma warning restore
 
         // UTILITIES

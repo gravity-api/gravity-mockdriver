@@ -119,6 +119,20 @@ namespace Gravity.Drivers.Mock.Tests
             // assert
             Assert.AreEqual(expected, actual: driver.WindowHandles.Count);
         }
+
+        [DataTestMethod]
+        [DataRow("return arguments[0].outerHTML;")]
+        public void OuterHtml(string script)
+        {
+            // setup
+            var driver = new MockWebDriver();
+
+            // setup
+            var actual = driver.ExecuteScript(script).ToString();
+
+            // assertion (expected exception)
+            Assert.IsTrue(!string.IsNullOrEmpty(actual));
+        }
     }
 }
 #pragma warning restore S4144

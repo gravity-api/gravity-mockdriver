@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Extensions;
 using OpenQA.Selenium.Mock;
 using System;
 using System.Text.RegularExpressions;
