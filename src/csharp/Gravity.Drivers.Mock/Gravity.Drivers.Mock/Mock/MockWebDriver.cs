@@ -382,7 +382,7 @@ namespace OpenQA.Selenium.Mock
 
         // EXECUTE SCRIPT FACTORY
 #pragma warning disable S3400, IDE0051
-        [Description("outerHTML")]
+        [Description(@"^return arguments\[0\].outerHTML;$")]
         private string SrcOuterHtml() =>
             "<div mock-attribute=\"mock attribute value\">mock element inner-text" +
             "   <div mock-attribute=\"mock attribute value\">mock element nested inner-text</div>" +
@@ -493,12 +493,6 @@ namespace OpenQA.Selenium.Mock
             // result
             return script;
         }
-
-        [Description(@"^return arguments\[0\].outerHTML;$")]
-        private string SrcElementOuterHtml() =>
-            "<div id=\"element_outer_html\">" +
-            "    mock web element outer HTML." +
-            "</div>";
 #pragma warning restore
 
         // UTILITIES
