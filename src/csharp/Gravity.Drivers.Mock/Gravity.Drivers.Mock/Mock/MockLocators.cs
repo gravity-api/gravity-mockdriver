@@ -7,6 +7,7 @@ namespace OpenQA.Selenium.Mock
 {
     public static class MockLocators
     {
+        public const string Body = "body";
         public const string Positive = "positive";
         public const string Negative = "negative";
         public const string Null = "null";

@@ -535,6 +535,14 @@ namespace OpenQA.Selenium.Mock
         public static IWebElement GetOptions(MockWebDriver parent) => new MockWebElement(parent, tagName: "option");
 
         /// <summary>
+        /// Gets an element with <body> tag.
+        /// </summary>
+        /// <returns>An interface through which the user controls elements on the page.</returns>
+        [Description(MockLocators.Body)]
+        public static IWebElement GetBody(MockWebDriver parent)
+            => new MockWebElement(parent, tagName: "BODY");
+
+        /// <summary>
         /// Gets a random element with a configurable chance of getting a positive element.
         /// </summary>
         /// <param name="parent">Driver in use.</param>

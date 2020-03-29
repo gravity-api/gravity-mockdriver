@@ -1,10 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿/*
+ * CHANGE LOG - keep only last 5 threads
+ * 
+ * on-line resources
+ */
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Extensions;
 using OpenQA.Selenium.Mock;
 using System;
 using System.Text.RegularExpressions;
 
+#pragma warning disable S4144
 namespace Gravity.Drivers.Mock.Tests
 {
     [TestClass]
@@ -157,6 +162,17 @@ namespace Gravity.Drivers.Mock.Tests
 
             // assertion
             Assert.IsTrue(element != null);
+        }
+
+        [DataTestMethod]
+        [DataRow("//body")]
+        public void BodyElement(string locator)
+        {
+            // setup
+            var element = new MockWebDriver().FindElement(By.XPath(locator));
+
+            // assertion
+            Assert.IsTrue(element?.TagName == "BODY");
         }
 
         [DataTestMethod, ExpectedException(typeof(NoSuchElementException))]
