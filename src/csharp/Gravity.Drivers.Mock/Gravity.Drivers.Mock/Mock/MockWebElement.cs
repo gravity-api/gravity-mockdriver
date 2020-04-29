@@ -117,7 +117,7 @@ namespace OpenQA.Selenium.Mock
         public string TagName { get; }
 
         /// <summary>
-        /// Gets the innerText of this element, without any leading or trailing whitespace, 
+        /// Gets the innerText of this element, without any leading or trailing whitespace,
         /// and with other whitespace collapsed.
         /// </summary>
         public string Text { get; }
@@ -133,13 +133,13 @@ namespace OpenQA.Selenium.Mock
         public bool Selected { get; }
 
         /// <summary>
-        /// Gets a System.Drawing.Point object containing the coordinates of the upper-left 
+        /// Gets a System.Drawing.Point object containing the coordinates of the upper-left
         /// corner of this element relative to the upper-left corner of the page.
         /// </summary>
         public Point Location { get; }
 
         /// <summary>
-        /// Gets a OpenQA.Selenium.IWebElement.Size object containing the height and width 
+        /// Gets a OpenQA.Selenium.IWebElement.Size object containing the height and width
         /// of this element.
         /// </summary>
         public Size Size { get; }
@@ -155,7 +155,7 @@ namespace OpenQA.Selenium.Mock
         public IWebDriver WrappedDriver { get; }
 
         /// <summary>
-        /// Represents an ordered pair of integer x- and y-coordinates that defines a point 
+        /// Represents an ordered pair of integer x- and y-coordinates that defines a point
         /// in a two-dimensional plane.
         /// </summary>
         public Point LocationOnScreenOnceScrolledIntoView => new Point(1, 1);
@@ -188,13 +188,7 @@ namespace OpenQA.Selenium.Mock
         /// <summary>
         /// Clicks this element.
         /// </summary>
-        public void Click()
-        {
-            if (!Displayed)
-            {
-                throw new ElementNotVisibleException();
-            }
-        }
+        public void Click() => AssertActionOnElement();
 
         /// <summary>
         /// Finds the first OpenQA.Selenium.IWebElement using the given method.
@@ -293,14 +287,7 @@ namespace OpenQA.Selenium.Mock
         /// <exception cref="InvalidElementStateException">Thrown when text="throw new InvalidElementStateException();"</exception>
         public void SendKeys(string text)
         {
-            if (!Displayed)
-            {
-                throw new ElementNotVisibleException();
-            }
-            if (IsInvalidState)
-            {
-                throw new InvalidElementStateException();
-            }
+            AssertActionOnElement();
             value = text;
         }
 
@@ -317,6 +304,18 @@ namespace OpenQA.Selenium.Mock
         /// </summary>
         /// <returns>A <see cref="Screenshot"/> object containing the image.</returns>
         public Screenshot GetScreenshot() => new MockScreenshot(string.Empty);
+
+        private void AssertActionOnElement()
+        {
+            if (!Displayed)
+            {
+                throw new ElementNotVisibleException();
+            }
+            if (IsInvalidState)
+            {
+                throw new InvalidElementStateException();
+            }
+        }
         #endregion
 
         #region *** factory      ***

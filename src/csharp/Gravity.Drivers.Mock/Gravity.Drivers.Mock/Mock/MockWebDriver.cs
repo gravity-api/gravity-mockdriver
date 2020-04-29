@@ -123,7 +123,7 @@ namespace OpenQA.Selenium.Mock
         public SessionId SessionId { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this object is a valid action executor. 
+        /// Gets a value indicating whether this object is a valid action executor.
         /// </summary>
         public bool IsActionExecutor => true;
 
