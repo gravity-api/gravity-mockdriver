@@ -79,7 +79,7 @@ steps:
   displayName: 'create GitHub tag'
   inputs:
     gitHubConnection: 'GitHub connection - Gravity API'
-    repositoryName: 'gravity-api/gravity-standalone'
+    repositoryName: 'gravity-api/gravity-mockdriver'
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
