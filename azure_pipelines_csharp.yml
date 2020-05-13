@@ -86,6 +86,5 @@ steps:
     tag: 'v$(buildVersion)'
     title: 'Production v$(buildVersion)'
     releaseNotesSource: 'inline'
-    assets: '$(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
