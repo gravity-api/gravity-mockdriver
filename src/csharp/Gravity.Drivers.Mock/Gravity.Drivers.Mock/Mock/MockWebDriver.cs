@@ -430,8 +430,8 @@ namespace OpenQA.Selenium.Mock
         private string SrcScroll(string script)
         {
             // setup
-            var y = Regex.Match(script, @"(?<=top:(\s+)?)\d+|(?<=\()\d+").Value;
-            var x = Regex.Match(script, @"(?<=left:(\s+)?)\d+|\d+(?=\))").Value;
+            var y = Regex.Match(script, @"(?<=top:(\s+)?)\d+|\d+(?=\))").Value;
+            var x = Regex.Match(script, @"(?<=left:(\s+)?)\d+|(?<=\()\d+").Value;
 
             // set state            
             int.TryParse(y, out topPosition);

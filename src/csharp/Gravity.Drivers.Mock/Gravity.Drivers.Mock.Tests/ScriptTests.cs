@@ -59,7 +59,7 @@ namespace Gravity.Drivers.Mock.Tests
 
         [DataTestMethod]
         [DataRow("window.scroll(top: 500, left: 400, behavior: auto)")]
-        [DataRow("window.scroll(500, 400)")]
+        [DataRow("window.scroll(400, 500)")]
         public void ScrollWindow(string script)
         {
             // setup
